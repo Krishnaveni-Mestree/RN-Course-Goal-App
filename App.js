@@ -3,15 +3,24 @@ import { useState } from 'react';
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 
 export default function App() {
-  const [enteredText,setEnteredText]=useState('');
+  const [enteredGoalText,setEnteredGoalText]=useState('');
+  const [courseGoals,setCourseGoals]=useState([]);
 
   function goalInputHandler(enteredText){
     //console.log(enteredText);
-    setEnteredText(enteredText)
+    setEnteredGoalText(enteredText)
   };
 
   function addGoalHandler(){
-    console.log(enteredText);
+    //console.log(enteredGoalText);
+    //setCourseGoals([...courseGoals,enteredGoalText]) //this is not bestway of updating state 
+    setCourseGoals((currentCourseGoals)=>[
+      ...currentCourseGoals,
+      enteredGoalText,
+    ]);
+    //If your new state depends on the previous state, 
+    // a better way of updating is to pass a function to this state updating function,
+    //a function which will be called automatically by React then derive the new state.
   };
   return (
     <View style={styles.appContainer}>
@@ -27,7 +36,9 @@ export default function App() {
         />
       </View>
       <View style={styles.goalsContainer}>
-        <Text>List of Goals....</Text>
+        {
+          courseGoals.map((goal,i)=><Text key={i}>{goal}</Text>)
+        }
       </View>
     </View>
   );
