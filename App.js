@@ -36,7 +36,7 @@ export default function App() {
         />
       </View>
       <View style={styles.goalsContainer}>
-        <ScrollView>
+        <ScrollView alwaysBounceVertical={false}>
           {
             courseGoals.map((goal,i)=>(
               <View style={styles.goalItem} key={i}>
