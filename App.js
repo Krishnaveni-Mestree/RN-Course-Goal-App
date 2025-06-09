@@ -14,6 +14,15 @@ export default function App() {
     ]);
   };
 
+  function deleteGoalHandler(id){
+    setCourseGoals((currentCourseGoals)=>{
+      return currentCourseGoals.filter((goal)=>goal.id!==id); //You're using the .filter() method to create a new array that excludes the goal with the specified ID.
+      //For each goal, it checks: "Is this goal's ID not equal to the one we want to delete?"
+      //If it's not equal (true) → keep it.
+      //If it's equal (false) → remove it.
+    })
+  }
+
   return (
     <View style={styles.appContainer}>
       <GoalInput onAddGoal={addGoalHandler}/>
@@ -21,7 +30,13 @@ export default function App() {
         <FlatList 
           data={courseGoals}
           renderItem={(itemData)=>{
-            return <GoalItem text={itemData.item.text}/>
+            return (
+              <GoalItem 
+                text={itemData.item.text} 
+                id={itemData.item.id}
+                onDeleteItem={deleteGoalHandler}
+              />
+            );
           }}
           keyExtractor={(item,i)=>{
             return item.id;
