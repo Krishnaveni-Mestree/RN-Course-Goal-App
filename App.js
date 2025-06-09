@@ -16,7 +16,7 @@ export default function App() {
     //setCourseGoals([...courseGoals,enteredGoalText]) //this is not bestway of updating state 
     setCourseGoals((currentCourseGoals)=>[
       ...currentCourseGoals,
-      enteredGoalText,
+      {text:enteredGoalText, id:Math.random.toString()}, //if we dont have key
     ]);
     //If your new state depends on the previous state, 
     // a better way of updating is to pass a function to this state updating function,
@@ -36,17 +36,22 @@ export default function App() {
         />
       </View>
       <View style={styles.goalsContainer}>
-        <ScrollView alwaysBounceVertical={false}>
-          {
-            courseGoals.map((goal,i)=>(
+        <FlatList 
+          data={courseGoals}
+          render={(itemData)=>{
+            return (
               <View style={styles.goalItem} key={i}>
                 <Text style={styles.goalText}>
-                  {goal}
+                  {itemData.item.text}
                 </Text>
               </View>
-            ))
-          }
-        </ScrollView>
+            )
+          }}
+          keyExtractor={(item,i)=>{
+            return item.id;
+          }}
+          alwaysBounceVertical={false}
+        />
       </View>
     </View>
   );
