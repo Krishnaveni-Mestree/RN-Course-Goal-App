@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { Button, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Button, ScrollView, StyleSheet, Text, TextInput, View,FlatList } from 'react-native';
 
 export default function App() {
   const [enteredGoalText,setEnteredGoalText]=useState('');
@@ -16,7 +16,7 @@ export default function App() {
     //setCourseGoals([...courseGoals,enteredGoalText]) //this is not bestway of updating state 
     setCourseGoals((currentCourseGoals)=>[
       ...currentCourseGoals,
-      {text:enteredGoalText, id:Math.random.toString()}, //if we dont have key
+      {text:enteredGoalText, id:Math.random().toString()}, //if we dont have key
     ]);
     //If your new state depends on the previous state, 
     // a better way of updating is to pass a function to this state updating function,
@@ -38,7 +38,7 @@ export default function App() {
       <View style={styles.goalsContainer}>
         <FlatList 
           data={courseGoals}
-          render={(itemData)=>{
+          renderItem={(itemData)=>{
             return (
               <View style={styles.goalItem} key={i}>
                 <Text style={styles.goalText}>
