@@ -1,11 +1,10 @@
 import React ,{useState}from "react";
-import {View,TextInput,Button,StyleSheet } from "react-native";
+import {View,TextInput,Button,StyleSheet,Modal } from "react-native";
 
 const GoalInput=(props)=>{
     const [enteredGoalText,setEnteredGoalText]=useState('');
 
     function goalInputHandler(enteredText){
-        //console.log(enteredText);
         setEnteredGoalText(enteredText)
     };
 
@@ -15,18 +14,23 @@ const GoalInput=(props)=>{
     }
 
     return(
-        <View style={styles.inputContainer}>
-            <TextInput 
-                placeholder='Your course goal!'
-                style={styles.textInput} 
-                onChangeText={goalInputHandler} //we r not executing this function, just pointing(focusing) the inputfield
-                value={enteredGoalText}
-            />
-        <Button 
-          title="Add Goal"
-          onPress={addGoalHandler}
-        />
-      </View>
+        <Modal 
+            visible={props.visible}
+            animationType="slide"
+        >
+            <View style={styles.inputContainer}>
+                <TextInput 
+                    placeholder='Your course goal!'
+                    style={styles.textInput} 
+                    onChangeText={goalInputHandler} //we r not executing this function, just pointing(focusing) the inputfield
+                    value={enteredGoalText}
+                />
+                <Button 
+                title="Add Goal"
+                onPress={addGoalHandler}
+                />
+            </View>
+        </Modal>
     );
 };
 
