@@ -3,29 +3,27 @@ import { View,Text,StyleSheet, Pressable } from "react-native";
 
 const GoalItem=(props)=>{
     return(
-        <Pressable onPress={props.onDeleteItem.bind(this,props.id)}> 
-            <View style={styles.goalItem}>
+        <View style={styles.goalItem}>
+            <Pressable 
+                android_ripple={{color:'#210644'}}
+                onPress={props.onDeleteItem.bind(this,props.id)}
+            > 
                 <Text style={styles.goalText}>
                     {props.text}
                 </Text>
-            </View>
-        </Pressable>
-        //{onPress doesnt give you the goals id it only triggers the func So you prebind the id to the func.}
-        //When the user taps a goal:
-            //props.onDeleteItem (which is deleteGoalHandler) is called
-            //It automatically receives props.id as an argument
-
+            </Pressable>
+        </View>
     );
 };
 
 const styles=StyleSheet.create({
     goalItem:{
         margin:8,
-        padding:8,
         borderRadius:6,
         backgroundColor:'#5e0acc',
     },
     goalText:{
+        padding:8, //for inside ripple_effect have to show 
         color:'white',
     }
 })
