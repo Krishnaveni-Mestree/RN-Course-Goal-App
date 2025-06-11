@@ -7,6 +7,7 @@ const GoalItem=(props)=>{
             <Pressable 
                 android_ripple={{color:'#210644'}}
                 onPress={props.onDeleteItem.bind(this,props.id)}
+                style={(pressed)=>pressed && styles.pressedItem}
             > 
                 <Text style={styles.goalText}>
                     {props.text}
@@ -25,6 +26,9 @@ const styles=StyleSheet.create({
     goalText:{
         padding:8, //for inside ripple_effect have to show 
         color:'white',
+    },
+    pressedItem:{
+        opacity:0.5,
     }
 })
 
