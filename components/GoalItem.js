@@ -28,7 +28,7 @@ const styles=StyleSheet.create({
         color:'white',
     },
     pressedItem:{
-        opacity:0.5,
+        opacity:1,
     }
 })
 
