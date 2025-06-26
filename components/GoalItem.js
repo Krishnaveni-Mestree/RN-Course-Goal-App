@@ -1,13 +1,20 @@
 import React from "react";
-import { View,Text,StyleSheet } from "react-native";
+import { View,Text,StyleSheet, Pressable } from "react-native";
 
 const GoalItem=(props)=>{
     return(
-        <View style={styles.goalItem}>
-            <Text style={styles.goalText}>
-                {props.text}
-            </Text>
-        </View>
+        <Pressable onPress={props.onDeleteItem.bind(this,props.id)}> 
+            <View style={styles.goalItem}>
+                <Text style={styles.goalText}>
+                    {props.text}
+                </Text>
+            </View>
+        </Pressable>
+        //{onPress doesnt give you the goals id it only triggers the func So you prebind the id to the func.}
+        //When the user taps a goal:
+            //props.onDeleteItem (which is deleteGoalHandler) is called
+            //It automatically receives props.id as an argument
+
     );
 };
 
