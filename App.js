@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { Button, ScrollView, StyleSheet, Text, TextInput, View,FlatList } from 'react-native';
+import GoalItem from './components/GoalItem';
 
 export default function App() {
   const [enteredGoalText,setEnteredGoalText]=useState('');
@@ -13,14 +14,10 @@ export default function App() {
 
   function addGoalHandler(){
     //console.log(enteredGoalText);
-    //setCourseGoals([...courseGoals,enteredGoalText]) //this is not bestway of updating state 
     setCourseGoals((currentCourseGoals)=>[
       ...currentCourseGoals,
-      {text:enteredGoalText, id:Math.random().toString()}, //if we dont have key
+      {text: enteredGoalText, id: Math.random().toString()}, //if we dont have key
     ]);
-    //If your new state depends on the previous state, 
-    // a better way of updating is to pass a function to this state updating function,
-    //a function which will be called automatically by React then derive the new state.
   };
   return (
     <View style={styles.appContainer}>
@@ -39,13 +36,7 @@ export default function App() {
         <FlatList 
           data={courseGoals}
           renderItem={(itemData)=>{
-            return (
-              <View style={styles.goalItem} key={i}>
-                <Text style={styles.goalText}>
-                  {itemData.item.text}
-                </Text>
-              </View>
-            )
+            return <GoalItem text={itemData.item.text}/>
           }}
           keyExtractor={(item,i)=>{
             return item.id;
@@ -82,13 +73,4 @@ const styles = StyleSheet.create({
   goalsContainer:{
     flex:5,
   },
-  goalItem:{
-    margin:8,
-    padding:8,
-    borderRadius:6,
-    backgroundColor:'#5e0acc',
-  },
-  goalText:{
-    color:'white',
-  }
 });
