@@ -1,11 +1,10 @@
 import React ,{useState}from "react";
-import {View,TextInput,Button,StyleSheet } from "react-native";
+import {View,TextInput,Button,StyleSheet,Modal } from "react-native";
 
 const GoalInput=(props)=>{
     const [enteredGoalText,setEnteredGoalText]=useState('');
 
     function goalInputHandler(enteredText){
-        //console.log(enteredText);
         setEnteredGoalText(enteredText)
     };
 
@@ -15,38 +14,57 @@ const GoalInput=(props)=>{
     }
 
     return(
-        <View style={styles.inputContainer}>
-            <TextInput 
-                placeholder='Your course goal!'
-                style={styles.textInput} 
-                onChangeText={goalInputHandler} //we r not executing this function, just pointing(focusing) the inputfield
-                value={enteredGoalText}
-            />
-        <Button 
-          title="Add Goal"
-          onPress={addGoalHandler}
-        />
-      </View>
+        <Modal 
+            visible={props.visible}
+            animationType="slide"
+        >
+            <View style={styles.inputContainer}>
+                <TextInput 
+                    placeholder='Your course goal!'
+                    style={styles.textInput} 
+                    onChangeText={goalInputHandler} //we r not executing this function, just pointing(focusing) the inputfield
+                    value={enteredGoalText}
+                />
+                <View style={styles.buttonContainer}>
+                    <View style={styles.button}>
+                        <Button 
+                            title="Add Goal"
+                            onPress={addGoalHandler}
+                        />
+                    </View>
+                    <View style={styles.button}>
+                        <Button title="Cancel" onPress={props.onCancel}/>
+                    </View>
+                </View>
+            </View>
+        </Modal>
     );
 };
 
 const styles=StyleSheet.create({
     inputContainer:{
         flex:1,
-        flexDirection:'row',
-        justifyContent:'space-between',  
+        justifyContent:'center',  
         alignItems:'center',
         marginBottom:24,
+        padding:16,
         borderBottomWidth:1,
         borderBottomColor:'#cccccc'
     },
     textInput:{
         borderWidth:1,
         borderColor:'#cccccc',
-        width:'70%',
-        marginRight:8,
+        width:'100%',
         padding:8
     },
+    buttonContainer:{
+        marginTop:16,
+        flexDirection:'row'
+    },
+    button:{
+        width:'30%',
+        marginHorizontal:8
+    }
 });
 
 export default GoalInput;
